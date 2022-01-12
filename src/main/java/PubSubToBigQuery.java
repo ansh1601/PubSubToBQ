@@ -14,14 +14,14 @@ public class PubSubToBigQuery {
 
     public static void main(String[] args){
         DataflowPipelineOptions dataflowPipelineOptions = PipelineOptionsFactory.as(DataflowPipelineOptions.class);
-        //dataflowPipelineOptions.setJobName("");
+        dataflowPipelineOptions.setJobName("usecase1-labid-18");
         dataflowPipelineOptions.setProject("nttdata-c4e-bde");
         dataflowPipelineOptions.setRegion("europe-west4");
         dataflowPipelineOptions.setGcpTempLocation("gs://c4e-uc1-dataflow-temp-18/temp ");
         dataflowPipelineOptions.setRunner(DataflowRunner.class);
 
         Pipeline pipeline= Pipeline.create(dataflowPipelineOptions);
-        PCollection<String> pubsubmessage = pipeline.apply(PubsubIO.readStrings().fromTopic(""));
+        PCollection<String> pubsubmessage = pipeline.apply(PubsubIO.readStrings().fromTopic("projects/nttdata-c4e-bde/topics/uc1-input-topic-18"));
         PCollection<TableRow> bqrow=pubsubmessage.apply(ParDo.of(new ConvertorStringBq()));
 
         bqrow.apply(BigQueryIO.writeTableRows().to("nttdata-c4e-bde:uc1_18.account")
