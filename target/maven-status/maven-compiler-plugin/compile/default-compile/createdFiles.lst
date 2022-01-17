@@ -1,0 +1,4 @@
+PubSubToBigQuery$JsonToTableRow.class
+PubSubToBigQuery$JsonToTableRow$1.class
+PubSubToBigQuery$ConvertorStringBq.class
+PubSubToBigQuery.class
